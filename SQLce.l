@@ -1,10 +1,10 @@
 %{
-#include "SQLce.h"
+#include "y.tab.h"
 %}
 %option nounput yylineno
 
 %%
-\|					return pipe;
+[,\(\)]           	   {return yytext[0];}
 "CREATE TABLE"			return create;
 
 "NOT NULL"			return notnull;
