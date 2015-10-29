@@ -7,12 +7,16 @@
 %%
 [,;\(\)]             {return yytext[0];}
 "CREATE TABLE"      return create;
-["NOT NULL""NULL""WITH DEFAULT"]		return modifier;
+"NOT NULL"          return notnull;
+"NULL"              return null;
+"WITH DEFAULT"      return default;
 
 
-int|long|double|string|char|bool {yyval.name = yytext; return datatype;}
+int {return integer;}
+bool {return boolean;}
 
-[a-zA-Z][_a-zA-Z0-9]*	{yyval.name = yytext;return names;}
+[_a-zA-Z0-9]+	{yyval.name = yytext;return names;}
+
 [0-9]+					{yyval.int = atoi(yytext) return number;}
 [0-9]+(.[0-9]+)*					{yyval.decimal = atoi(yytext) return number;}
 [ \t\n]					;
