@@ -5,19 +5,27 @@ void yyerror (char *s);
 void updateSymbolVal(char symbol, int val);
 %}
 
-%union {char[] string, int num, double decimal}         /* Yacc definitions */
+%union {char[] string, int num, long largeNum, double dec}         /* Yacc definitions */
 %start createTable
+%token create
+%token datatype
+%token modifier
 %token <num> number
 %token <string> string
+%token <largeNum> largeNumber
+%token <dec> decimal
 
 
 %%
 
 /* descriptions of expected inputs     corresponding actions (in C) */
 
-createTable   :
-        ;
-
+createTable : create string '('  ')' tables ';'
+;
+tables      : table
+            | table ',' tables
+;
+table       : string datatype modifier
 %%                     /* C code */
 
 int main (void) {
