@@ -38,7 +38,8 @@ tables      : table
 ;
 table       : string datatype notnull
             | string datatype null
-            | string
+            | string int number
+            | string nool boolean
 ;
 datatype    : int
             | bool
