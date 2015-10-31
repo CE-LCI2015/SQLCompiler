@@ -22,9 +22,9 @@ void create(const xmlChar* tableName, struct column* columns, int numberOfColumn
  */
 void addColumn(xmlNodePtr table, struct column* col){
 	xmlNewTextChild(table, NULL, (xmlChar*)"name", col->name);
-        xmlNewTextChild(table, NULL, (xmlChar*)"type", col->type);
-        xmlNewTextChild(table, NULL, (xmlChar*)"required", col->required);
-        xmlNewTextChild(table, NULL, (xmlChar*)"default", col->defaultValue);
+	xmlNewTextChild(table, NULL, (xmlChar*)"type", col->type);
+	xmlNewTextChild(table, NULL, (xmlChar*)"required", col->required);
+	xmlNewTextChild(table, NULL, (xmlChar*)"default", col->defaultValue);
 }
 
 /**@brief creates the document
