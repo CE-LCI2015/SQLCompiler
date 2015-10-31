@@ -12,8 +12,7 @@ void create(const xmlChar* tableName, struct column* columns, int numberOfColumn
 	document = parseDoc();
 	xmlNodePtr tmp = xmlDocGetRootElement(document);
 	xmlNodePtr newTable = xmlNewChild(tmp, NULL, tableName, NULL);
-	int i;
-	for(i=0; i<numberOfColumns; i++) addColumn(newTable,columns+i);
+	for(int i=0; i<numberOfColumns; i++) addColumn(newTable,columns+i);
 	xmlSaveFormatFile(OUTPUT_FILE, document, 1);	
 }
 

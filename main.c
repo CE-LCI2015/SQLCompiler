@@ -1,6 +1,6 @@
 /**	MAKEFILE
  * 	all: main.c
- * 		gcc -g -Wall -o prueba main.c xml.c `xml2-config --cflags --libs`
+ * 		gcc -g -std=c99 -Wall -o prueba main.c xml.c `xml2-config --cflags --libs`
  *	clean:
  *		$(RM) prueba
  */
