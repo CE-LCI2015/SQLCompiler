@@ -12,14 +12,12 @@
 "WITH DEFAULT"      return withdefault;
 
 
-int {return num;}
+int {return integer;}
 bool {return boolean;}
 
-[_a-zA-Z0-9]+			{yylval.text = yytext;return string;}
-["true""false"]			{yylval.b = atoi(yytext) return boolean;}
-[0-9]+					{yylval.num = atoi(yytext) return number;}
+[_a-zA-Z0-9]+			{yylval.txt=yytext; return text;}
 [ \t\n]					{;}
-.					{printf(ECHO); yyerror ("Unexpected character: %c\n",yytext[0]));}
+.					{ECHO; yyerror ("Unexpected character");}
 
 %%
 
