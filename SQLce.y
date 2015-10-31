@@ -2,47 +2,48 @@
 void yyerror (char *s);
 #include <stdio.h>     /* C declarations used in actions */
 #include <stdlib.h>
-
+//#include "xml.h"
+typedef enum {INTEGER, BOOLEAN} datatypes;
 struct Table
 {
     char*  name;
-    char*  datatype;
+    datatypes  type;
     bool notnull;
-    bool null;
     void* default;
-};
+}tablestruct;
 int numberOfTables;
 struct Table tablesArray[40];
 %}
 
-%union {char[] string, int num, bool boolean}         /* Yacc definitions */
+%union {char[] text, int num, bool b, datatypes d, tablestruct t}         /* Yacc definitions */
 %start createTable
 %token create
-%token int
-%token boolean
+%token <d> integer
+%token <d> boolean
 %token notnull
 %token null
-%token default
+%token withdefault
 %token <num> number
-%token <boolean> boolean
-
+%token <string> text
+%type <d> datatype
+%type <t> table
 
 %%
 
 /* descriptions of expected inputs     corresponding actions (in C) */
 
-createTable : create string '(' tables ')' ';'
+createTable : create text '(' tables ')' ';'
 ;
-tables      : table
-            | table ',' tables
+tables      : table                     {printf("new table");}
+            | table ',' tables          {printf("new table comma");}
 ;
-table       : string datatype notnull
-            | string datatype null
-            | string int number
-            | string nool boolean
+table       : text datatype notnull   {printf("new notnull table");}
+            | text datatype null      {printf("new null table");}
+            | text integer withdefault number     {printf("integer table");}
+            | text boolean withdefault boolean    {printf("new boolean table");}
 ;
-datatype    : int
-            | bool
+datatype    : integer       {$$ = datatypes.INTEGER;}
+            | boolean      {$$ = datatypes.BOOLEAN;}
 %%                     /* C code */
 
 int main (void) {
@@ -53,3 +54,21 @@ int main (void) {
 
 void yyerror (char *s) {fprintf (stderr, "%s\n", s);}
 
+tablestruct createTable(char* name, datatypes type, boolean notnull, boolean default, int data)
+{
+    tablestruct table;
+    table.name  = name; table.type = type; table.null = notnull;
+    if(default)
+    {table.default = malloc(sizeof(int));
+        *(table.default) = data;}
+    else{table.default = NULL;}
+}
+tablestruct createTable(char* name, datatypes type, boolean notnull, boolean default, boolean data)
+{
+    tablestruct table;
+    table.name  = name; table.type = type; table.null = notnull;
+    if(default)
+    {table.default = malloc(sizeof(bool));
+        *(table.default) = data;}
+    else{table.default = NULL;}
+}
