@@ -15,6 +15,6 @@ struct column{
         xmlChar* defaultValue;
 };
 
-void create(const xmlChar*, column*, int);
-void  addColumn(xmlNodePtr, column*);
+void create(const xmlChar*, struct column*, int);
+void addColumn(xmlNodePtr, struct column*);
 xmlDocPtr parseDoc();
