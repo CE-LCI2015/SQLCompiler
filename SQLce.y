@@ -62,10 +62,13 @@ void addTable(char* name)
 
 }
 struct column* createColumn(char* name, char* type, int required, char* defaultValue) {
+    printf("%s\n",strtok(name, " "));
+    printf("%s\n",strtok(type, " "));
     struct column* col = malloc(sizeof(struct column));
-    col->name=(xmlChar*)name;
-    col->type=(xmlChar*)type;
-    col->required=(xmlChar*)required;
+    col->name=(xmlChar*)strtok(name, " ");
+    col->type=(xmlChar*)strtok(type, " ");
+    if(required) col->required=(xmlChar*)"true";
+    else col->required=(xmlChar*)"false";
     col->defaultValue=(xmlChar*)defaultValue;
     return col;
 }
