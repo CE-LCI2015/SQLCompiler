@@ -33,7 +33,7 @@ db 			: table {;}
 			| db table {;}
 table : create text '(' columns ')' ';' {addTable($2);}
 ;
-columns      : column                     {;}
+columns      : column                      {;}
             | columns ',' columns          {;}
 ;
 columns       : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL));}
@@ -48,14 +48,7 @@ int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-    // todo inicializar la lista
-	if(! yyparse ( ))
-	{
-        //Agregar ultima tabla
-        create(currentTable, cols)
-		parseXML();
-
-	}
+	if(! yyparse ( )) create(currentTable, cols)
 	else {return 1;}
 }
 
