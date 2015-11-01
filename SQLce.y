@@ -62,7 +62,8 @@ int main (void) {
 	else {return 1;}
 }
 
-struct column createColumn(char* name, char* type, int required, char* defaultValue)
+
+void initDocument()
 {
     struct column* col = malloc(sizeof(struct column));
     col->name=(xmlChar*)name;
