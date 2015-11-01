@@ -18,7 +18,7 @@ struct column* createColumn(char* name, char* type, int required, char* defaultV
 
 %union {char* txt ; char* type;}        /* Yacc definitions */
 %start db
-%token create
+%token createtable
 %token <type> datatype
 %token <txt> text
 %token notnull
@@ -33,7 +33,7 @@ struct column* createColumn(char* name, char* type, int required, char* defaultV
 
 db 			: table {;}
 			| db table {;}
-table : create text '(' columns ')' ';' {addTable($2);}
+table : createtable text '(' columns ')' ';' {addTable($2);}
 ;
 
 columns      : column                     {;}
