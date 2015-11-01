@@ -7,7 +7,7 @@
 /**@brief adds a node
  * @param data: data to add
  */
-void struct List::add(void* data){
+void List::add(void* data){
     struct Node newNode;
     newNode.data=data;
     newNode.next=head;
