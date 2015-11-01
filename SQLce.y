@@ -9,7 +9,6 @@ void yyerror (char *s);
 #define false 0
 
 struct list cols;
-char* currentTable;
 void addTable(char* name);
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
 
@@ -54,15 +53,12 @@ int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-	if(! yyparse ( )) create(currentTable, &cols);
-	else return 1;
+	return yyparse ( );
 }
 
 void addTable(char* name)
 {
-    if(currentTable) create(currentTable, &cols);
-    currentTable = malloc(sizeof(char) * strlen(name));
-    strcpy(currentTable,name);
+   create(name, &cols);
 
 }
 struct column* createColumn(char* name, char* type, int required, char* defaultValue) {

@@ -12,7 +12,7 @@
 "WITH DEFAULT"      return withdefault;
 
 
-int(eger)?|bool(ean)?|varchar([0-9]+)|char(acter)?		{yylval.type =yytext; return datatype;}
+int(eger)?|bool(ean)?|varchar([0-9]+)|char(acter)?|decimal|double		{yylval.type =yytext; return datatype;}
 
 
 [_a-zA-Z0-9˜]+			{yylval.txt=yytext; return text;}
