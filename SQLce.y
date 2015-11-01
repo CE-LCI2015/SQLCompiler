@@ -52,11 +52,10 @@ int main (void) {
 #endif
 	initDocument();
 
-	if(! yyparse ( ))
-	{
+	if(! yyparse ( )){
 		parseXML();
 	}
-	else {return 1;}
+	else{return 1;}
 }
 
 
