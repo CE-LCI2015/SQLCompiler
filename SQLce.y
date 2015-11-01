@@ -9,7 +9,7 @@ void yyerror (char *s);
 
 void initDocument();
 void parseXML();
-void addTable(char* tablename, char* dtype, int required, int wdefault, char* defaultdata);
+void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata);
 
 
 %}
@@ -31,12 +31,12 @@ void addTable(char* tablename, char* dtype, int required, int wdefault, char* de
 
 createTable : create text '(' tables ')' ';'
 ;
-tables      : table                     {;}
-            | table ',' tables          {;}
+columns      : column                     {;}
+            | columns ',' columns          {;}
 ;
-table       : text datatype notnull   {addTable($1,$2,true,false,NULL);}
-            | text datatype null      {addTable($1,$2,false,false,NULL);}
-            | text datatype withdefault text {addTable($1,$2,false,true,$4);}
+columns       : text datatype notnull   {addColumn($1,$2,true,false,NULL);}
+            | text datatype null      {addColumn($1,$2,false,false,NULL);}
+            | text datatype withdefault text {addColumn($1,$2,false,true,$4);}
 ;
 
 %%                     /* C code */
@@ -64,9 +64,9 @@ void parseXML()
 {
 
 }
-void addTable(char* tablename, char* dtype, int required, int wdefault, char* defaultdata)
+void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata)
 {
-	printf("TableName: %s\n",tablename);
+	printf("ColumnName: %s\n",columnname);
 	printf("Type: %s\n",dtype);
 }
 void yyerror (char *s) 
