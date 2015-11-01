@@ -9,13 +9,14 @@ void yyerror (char *s);
 
 void initDocument();
 void parseXML();
+void addTable(char* tablename)
 void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata);
 
 
 %}
 
 %union {char* txt ; char* type;}        /* Yacc definitions */
-%start createTable
+%start db
 %token create
 %token <type> datatype
 %token <txt> text
@@ -28,8 +29,9 @@ void addColumn(char* columnname, char* dtype, int required, int wdefault, char* 
 %%
 
 /* descriptions of expected inputs     corresponding actions (in C) */
-
-createTable : create text '(' tables ')' ';'
+db 			: table {;}
+			| db table {;}
+table : create text '(' columns ')' ';'
 ;
 columns      : column                     {;}
             | columns ',' columns          {;}
@@ -63,6 +65,10 @@ void initDocument()
 void parseXML()
 {
 
+}
+void addTable(char* tablename)
+{
+	printf("TableName: %s\n",tablename);
 }
 void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata)
 {
