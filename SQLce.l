@@ -12,8 +12,8 @@
 "WITH DEFAULT"      return withdefault;
 
 
-int {return integer;}
-bool {return boolean;}
+"int"|"bool"		{yylval.type =yytext; return datatype;}
+
 
 [_a-zA-Z0-9]+			{yylval.txt=yytext; return text;}
 [ \t\n]					{;}

@@ -2,26 +2,27 @@
 void yyerror (char *s);
 #include <stdio.h>     /* C declarations used in actions */
 #include <stdlib.h>
-//#include "xml.h"
-#define YYDEBUG 1 // Ojo desactivar
-#define INTEGER 1
-#define BOOLEAN 2
+#include "xml.h"
+#define YYDEBUG 0 // Ojo desactivar
+#define true  1
+#define false 0
 
-int numberOfTables;
+void initDocument();
+void parseXML();
+void addTable(char* tablename, char* dtype, int required, int wdefault, char* defaultdata);
+
 
 %}
 
-%union {char* txt ; int type;}        /* Yacc definitions */
+%union {char* txt ; char* type;}        /* Yacc definitions */
 %start createTable
 %token create
-%token <type> integer
-%token <type> boolean
+%token <type> datatype
 %token <txt> text
 %token notnull
 %token null
 %token withdefault
 %token <txt> text
-%type <type> datatype
 
 
 %%
@@ -30,26 +31,45 @@ int numberOfTables;
 
 createTable : create text '(' tables ')' ';'
 ;
-tables      : table                     {TRACE printf("new table");}
-            | table ',' tables          {TRACE printf("new table comma");}
+tables      : table                     {;}
+            | table ',' tables          {;}
 ;
-table       : text datatype notnull   {TRACE printf("new notnull table");}
-            | text datatype null      {TRACE printf("new null table");}
-            | text datatype withdefault text     {TRACE printf("integer table");}
+table       : text datatype notnull   {addTable($1,$2,true,false,NULL);}
+            | text datatype null      {addTable($1,$2,false,false,NULL);}
+            | text datatype withdefault text {addTable($1,$2,false,true,$4);}
 ;
-datatype    : integer      {TRACE ;}// {$$ = datatypes.INTEGER;}
-            | boolean     {TRACE ;}// {$$ = datatypes.BOOLEAN;}
+
 %%                     /* C code */
 
 int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-    numberOfTables = 0;
+	initDocument();
 
-	return yyparse ( );
+	if(! yyparse ( ))
+	{
+		parseXML();
+	}
+	else {return 1;}
 }
 
-void yyerror (char *s) {fprintf (stderr, "%s\n", s);} 
 
+void initDocument()
+{
 
+}
+
+void parseXML()
+{
+
+}
+void addTable(char* tablename, char* dtype, int required, int wdefault, char* defaultdata)
+{
+	printf("TableName: %s\n",tablename);
+	printf("Type: %s\n",dtype);
+}
+void yyerror (char *s) 
+{
+	fprintf (stderr, "%s\n", s);
+} 

@@ -16,11 +16,6 @@ int main(){
 	col.required=(xmlChar*)"false";
 	col.defaultValue=(xmlChar*)"default";
 	
-	printf("%s \n",(char*)col.name);
-	printf("%s \n",(char*)col.type);
-	printf("%s \n",(char*)col.required);
-	printf("%s \n",(char*)col.defaultValue);
-	
 	create(tableName,&col,1);
 	
 	return 0;

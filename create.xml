@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<tables>
-  <table>
-    <name>name</name>
-    <type>type</type>
-    <required>false</required>
-    <default>default</default>
-  </table>
-</tables>
