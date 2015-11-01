@@ -19,14 +19,14 @@ Lex is a program generator designed for lexical processing of character input st
 Yacc provides a general tool for describing the input to a computer program. The Yacc user prepares a specification of the input process; this includes rules describing the input structure, code to be invoked when these rules are recognized, and a low-level routine to do the basic input. Yacc then generates a function to control the input process. This function, called a parser, calls the user-supplied low-level input routine (the lexical analyzer) to pick up the basic items (called tokens) from the input stream. 
 
 For lex we used the tokens.
--text for names, strings, numbers.
--datatype for types, such as int , bool...
--createtable for the keywords CREATE TABLE
+- text for names, strings, numbers.
+- datatype for types, such as int , bool...
+- createtable for the keywords CREATE TABLE
 -notnull, null, withdefault for the constraints of SQL
 
 
 We used the folowing rules for yacc:
--db -> table | db table 
--table -> createtable text ( columns ) ;
--columns -> column | column , columns
--column -> text datatype notnull | text datatype null | text datatype withdefault text 
+- db -> table | db table 
+- table -> createtable text ( columns ) ;
+- columns -> column | column , columns
+- column -> text datatype notnull | text datatype null | text datatype withdefault text 
