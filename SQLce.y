@@ -58,12 +58,10 @@ int main (void) {
 
 void addTable(char* name)
 {
-   create(name, &cols);
+   create(strtok(name, " "), &cols);
 
 }
 struct column* createColumn(char* name, char* type, int required, char* defaultValue) {
-    printf("%s\n",strtok(name, " "));
-    printf("%s\n",strtok(type, " "));
     struct column* col = malloc(sizeof(struct column));
     col->name=(xmlChar*)strtok(name, " ");
     col->type=(xmlChar*)strtok(type, " ");
