@@ -1,6 +1,16 @@
 #include "xml.h"
 
-xmlDocPtr document; 
+xmlDocPtr document;
+
+/**@brief adds a node
+ * @param data: data to add
+ */
+void list::add(void* data){
+	struct node newNode;
+	newNode.data=data;
+	newNode.next=head;
+	head=&newNode;
+}
 
 /**@brief insert a create sentence
  * @param char* tableName: name of the table
@@ -8,13 +18,13 @@ xmlDocPtr document;
  * @param int numberOfColumns: number of columns of the table 
  * @return 
  */
-void create(const xmlChar* tableName, struct List* columns){
+void create(const xmlChar* tableName, struct list* columns){
 	document = parseDoc();
 	xmlNodePtr tmp = xmlDocGetRootElement(document);
 	xmlNodePtr newTable = xmlNewChild(tmp, NULL, tableName, NULL);
 	while(columns->head) {
 		addColumn(newTable, (struct column*)columns->head->data);
-		struct Node* tmp = columns->head;
+		struct node* tmp = columns->head;
 		columns->head = columns->head->next;
 		free(tmp);
 	}

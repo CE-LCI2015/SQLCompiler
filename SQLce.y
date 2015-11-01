@@ -3,11 +3,12 @@ void yyerror (char *s);
 #include <stdio.h>     /* C declarations used in actions */
 #include <stdlib.h>
 #include "xml.h"
+
 #define YYDEBUG 0 // Ojo desactivar
 #define true  1
 #define false 0
 
-struct List cols;
+struct list cols;
 char* currentTable;
 void addTable(char* name);
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
@@ -66,7 +67,7 @@ void addTable(char* name)
 {
     if(currentTable) //if it's not the first table
     {
-        create(currentTable, cols)
+        create(currentTable, &cols)
     }
     currentTable = malloc(sizeof(char) * strlen(name));
     strcpy(currentTable,name);
