@@ -40,6 +40,7 @@ columns      : column                     {;}
 columns       : text datatype notnull   {addColumn($1,$2,true,false,NULL);}
             | text datatype null      {addColumn($1,$2,false,false,NULL);}
             | text datatype withdefault text {addColumn($1,$2,false,true,$4);}
+            | text datatype {addColumns($1,$2,false,false,NULL);}
 ;
 
 %%                     /* C code */
