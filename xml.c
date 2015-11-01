@@ -6,7 +6,7 @@ xmlDocPtr document;
  * @param data: data to add
  */
 void addToList(struct list* ls, void* data){
-	struct node newNode = malloc(sizeof(struct node));
+	struct node* newNode = malloc(sizeof(struct node));
 	newNode->data=data;
 	newNode->next=ls->head;
 	ls->head=newNode;
