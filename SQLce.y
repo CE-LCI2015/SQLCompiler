@@ -9,10 +9,7 @@ void yyerror (char *s);
 
 List columns;
 
-void initDocument();
-void parseXML();
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
-
 
 %}
 
@@ -63,8 +60,7 @@ int main (void) {
 }
 
 
-void initDocument()
-{
+void struct column* createColumn(char* name, char* type, int required, char* defaultValue) {
     struct column* col = malloc(sizeof(struct column));
     col->name=(xmlChar*)name;
     col->type=(xmlChar*)type;
