@@ -14,6 +14,8 @@ struct column* createColumn(char* name, char* type, int required, char* defaultV
 
 %}
 
+
+
 %union {char* txt ; char* type;}        /* Yacc definitions */
 %start db
 %token create
@@ -22,21 +24,24 @@ struct column* createColumn(char* name, char* type, int required, char* defaultV
 %token notnull
 %token null
 %token withdefault
-%token <txt> text
-%type <t>
+
+
 
 
 %%
 
-/* descriptions of expected inputs     corresponding actions (in C) */
+
 db 			: table {;}
 			| db table {;}
 table : create text '(' columns ')' ';' {addTable($2);}
 ;
-columns      : column                      {;}
-            | columns ',' columns          {;}
+
+columns      : column                     {;}
+            | column ',' columns          {;}
 ;
-columns       : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL));}
+
+
+column      : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL));}
             | text datatype null      {cols.add(createColumn($1,$2,false,NULL));}
             | text datatype withdefault text {cols.add(createColumn($1,$2,false,$4));}
 ;
@@ -48,7 +53,12 @@ int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-	if(! yyparse ( )) create(currentTable, cols)
+	if(! yyparse ( ))
+	{
+        //Agregar ultima tabla
+        create(currentTable, cols)
+
+	}
 	else {return 1;}
 }
 
@@ -57,7 +67,6 @@ void addTable(char* name)
     if(currentTable) //if it's not the first table
     {
         create(currentTable, cols)
-        // todo inicializar la lista
     }
     currentTable = malloc(sizeof(char) * strlen(name));
     strcpy(currentTable,name);
