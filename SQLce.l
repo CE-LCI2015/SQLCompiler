@@ -6,7 +6,7 @@
 
 %%
 [,;\(\)]             {return yytext[0];}
-"CREATE TABLE"      return create;
+"CREATE TABLE"      return createtable;
 "NOT NULL"          return notnull;
 "NULL"              return null;
 "WITH DEFAULT"      return withdefault;
