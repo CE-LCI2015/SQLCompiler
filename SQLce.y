@@ -54,21 +54,13 @@ int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-	if(! yyparse ( ))
-	{
-        //Agregar ultima tabla
-        create(currentTable, &cols)
-
-	}
-	else {return 1;}
+	if(! yyparse ( )) create(currentTable, &cols);
+	else return 1;
 }
 
 void addTable(char* name)
 {
-    if(currentTable) //if it's not the first table
-    {
-        create(currentTable, &cols)
-    }
+    if(currentTable) create(currentTable, &cols);
     currentTable = malloc(sizeof(char) * strlen(name));
     strcpy(currentTable,name);
 
