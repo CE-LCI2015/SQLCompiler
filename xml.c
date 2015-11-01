@@ -22,6 +22,8 @@ void create(const xmlChar* tableName, struct list* columns){
 	document = parseDoc();
 	xmlNodePtr tmp = xmlDocGetRootElement(document);
 	xmlNodePtr newTable = xmlNewChild(tmp, NULL, tableName, NULL);
+	printf("a");
+	printf(columns->head);
 	while(columns->head) {
 		addColumn(newTable, (struct column*)columns->head->data);
 		struct node* tmp = columns->head;
