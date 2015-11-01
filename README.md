@@ -30,3 +30,6 @@ We used the folowing rules for yacc:
 - table -> createtable text ( columns ) ;
 - columns -> column | column , columns
 - column -> text datatype notnull | text datatype null | text datatype withdefault text 
+
+## Final Status
+The program makes all the recognition and detects errors in syntax but the output in the xml is not the desired
