@@ -11,7 +11,7 @@
  */
 struct Node{
     void* data = 0;
-    scruct Node* next = 0;
+    struct Node* next = 0;
 };
 
 /**@brief contains nodes
@@ -19,7 +19,7 @@ struct Node{
  * @param int lenght: lenght of the list
  */
 struct List{
-    scruct Node* head = 0;
+    struct Node* head = 0;
     int lenght = 0;
     void add(void*);
 };

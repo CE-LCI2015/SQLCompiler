@@ -7,7 +7,7 @@ void yyerror (char *s);
 #define true  1
 #define false 0
 
-List cols;
+struct List cols;
 char* currentTable;
 void addTable(char* name);
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
