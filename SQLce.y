@@ -7,7 +7,7 @@ void yyerror (char *s);
 #define true  1
 #define false 0
 
-List columns;
+List cols;
 
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
 
@@ -35,13 +35,13 @@ table : create text '(' columns ')' ';' {addTable($2)}
 columns      : column                     {;}
             | columns ',' columns          {;}
 ;
-columns       : text datatype notnull   {columns.add(createColumn($1,$2,true,NULL));}
-            | text datatype null      {columns.add(createColumn($1,$2,false,NULL));}
-            | text datatype withdefault text {columns.add(createColumn($1,$2,false,$4));}
+columns       : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL));}
+            | text datatype null      {cols.add(createColumn($1,$2,false,NULL));}
+            | text datatype withdefault text {cols.add(createColumn($1,$2,false,$4));}
 ;
 
 /**NOTA:
- * falta: create(tableName, columns);
+ * falta: create(tableName, cols);
  */
 
 %%                     /* C code */
