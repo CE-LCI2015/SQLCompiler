@@ -32,4 +32,4 @@ We used the folowing rules for yacc:
 - column -> text datatype notnull | text datatype null | text datatype withdefault text 
 
 ## Final Status
-The program makes all the recognition and detects errors in syntax but the output in the xml is not the desired
+The program makes all the recognition and detects errors in syntax but does not detect if the type is equal to the default data. Something not specified by the teacher but I think necesary
