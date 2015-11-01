@@ -56,7 +56,7 @@ int main (void) {
 	if(! yyparse ( ))
 	{
         //Agregar ultima tabla
-        create(currentTable, cols)
+        create(currentTable, &cols)
 
 	}
 	else {return 1;}

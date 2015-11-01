@@ -2,8 +2,12 @@
 // Created by roberto on 31/10/15.
 //
 
-#ifndef SQLCOMPILER_LIST_H
-#define SQLCOMPILER_LIST_H
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h>
+
 
 /**@brief contains data
  * @param void* data: data generic pointer
@@ -23,5 +27,3 @@ struct List{
     int lenght = 0;
     void add(void*);
 };
-
-#endif //SQLCOMPILER_LIST_H

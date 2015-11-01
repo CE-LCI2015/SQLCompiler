@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
 #include "list.h"
+
 #define OUTPUT_FILE "create.xml"
 
 /**@brief column
@@ -15,6 +11,6 @@ struct column{
         xmlChar* defaultValue;
 };
 
-void create(const xmlChar*, List*);
+void create(const xmlChar*, struct List*);
 void addColumn(xmlNodePtr, struct column*);
 xmlDocPtr parseDoc();
