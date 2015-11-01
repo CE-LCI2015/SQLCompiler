@@ -8,7 +8,8 @@ void yyerror (char *s);
 #define false 0
 
 List cols;
-
+char* currentTable;
+void addTable(char* name);
 struct column* createColumn(char* name, char* type, int required, char* defaultValue);
 
 %}
@@ -30,7 +31,7 @@ struct column* createColumn(char* name, char* type, int required, char* defaultV
 /* descriptions of expected inputs     corresponding actions (in C) */
 db 			: table {;}
 			| db table {;}
-table : create text '(' columns ')' ';' {addTable($2)}
+table : create text '(' columns ')' ';' {addTable($2);}
 ;
 columns      : column                     {;}
             | columns ',' columns          {;}
@@ -40,9 +41,6 @@ columns       : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL))
             | text datatype withdefault text {cols.add(createColumn($1,$2,false,$4));}
 ;
 
-/**NOTA:
- * falta: create(tableName, cols);
- */
 
 %%                     /* C code */
 
@@ -50,16 +48,28 @@ int main (void) {
 #if YYDEBUG
         yydebug = 1;
 #endif
-	initDocument();
-
+    // todo inicializar la lista
 	if(! yyparse ( ))
 	{
+        //Agregar ultima tabla
+        create(currentTable, cols)
 		parseXML();
+
 	}
 	else {return 1;}
 }
 
+void addTable(char* name)
+{
+    if(currentTable) //if it's not the first table
+    {
+        create(currentTable, cols)
+        // todo inicializar la lista
+    }
+    currentTable = malloc(sizeof(char) * strlen(name));
+    strcpy(currentTable,name);
 
+}
 struct column* createColumn(char* name, char* type, int required, char* defaultValue) {
     struct column* col = malloc(sizeof(struct column));
     col->name=(xmlChar*)name;
