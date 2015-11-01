@@ -7,10 +7,11 @@ void yyerror (char *s);
 #define true  1
 #define false 0
 
+List columns;
+
 void initDocument();
 void parseXML();
-void addTable(char* tablename)
-void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata);
+struct column* createColumn(char* name, char* type, int required, char* defaultValue);
 
 
 %}
@@ -37,10 +38,14 @@ table : create text '(' columns ')' ';' {addTable($2)}
 columns      : column                     {;}
             | columns ',' columns          {;}
 ;
-columns       : text datatype notnull   {addColumn($1,$2,true,false,NULL);}
-            | text datatype null      {addColumn($1,$2,false,false,NULL);}
-            | text datatype withdefault text {addColumn($1,$2,false,true,$4);}
+columns       : text datatype notnull   {columns.add(createColumn($1,$2,true,NULL));}
+            | text datatype null      {columns.add(createColumn($1,$2,false,NULL));}
+            | text datatype withdefault text {columns.add(createColumn($1,$2,false,$4));}
 ;
+
+/**NOTA:
+ * falta: create(tableName, columns);
+ */
 
 %%                     /* C code */
 
@@ -57,24 +62,14 @@ int main (void) {
 	else {return 1;}
 }
 
-
-void initDocument()
+struct column createColumn(char* name, char* type, int required, char* defaultValue)
 {
-
-}
-
-void parseXML()
-{
-
-}
-void addTable(char* tablename)
-{
-	printf("TableName: %s\n",tablename);
-}
-void addColumn(char* columnname, char* dtype, int required, int wdefault, char* defaultdata)
-{
-	printf("ColumnName: %s\n",columnname);
-	printf("Type: %s\n",dtype);
+    struct column* col = malloc(sizeof(struct column));
+    col->name=(xmlChar*)name;
+    col->type=(xmlChar*)type;
+    col->required=(xmlChar*)required;
+    col->defaultValue=(xmlChar*)defaultValue;
+    return col;
 }
 void yyerror (char *s) 
 {

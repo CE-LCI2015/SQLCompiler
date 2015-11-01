@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
-
+#include "list.h"
 #define OUTPUT_FILE "create.xml"
 
 /**@brief column
@@ -15,6 +15,6 @@ struct column{
         xmlChar* defaultValue;
 };
 
-void create(const xmlChar*, struct column*, int);
+void create(const xmlChar*, List*);
 void addColumn(xmlNodePtr, struct column*);
 xmlDocPtr parseDoc();

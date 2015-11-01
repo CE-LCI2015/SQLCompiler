@@ -8,11 +8,16 @@ xmlDocPtr document;
  * @param int numberOfColumns: number of columns of the table 
  * @return 
  */
-void create(const xmlChar* tableName, struct column* columns, int numberOfColumns){
+void create(const xmlChar* tableName, List* columns){
 	document = parseDoc();
 	xmlNodePtr tmp = xmlDocGetRootElement(document);
 	xmlNodePtr newTable = xmlNewChild(tmp, NULL, tableName, NULL);
-	for(int i=0; i<numberOfColumns; i++) addColumn(newTable,columns+i);
+	while(columns->head) {
+		addColumn(newTable, (struct column*)columns->head->data);
+		Node* tmp = head;
+		head = head->next;
+		free(tmp);
+	}
 	xmlSaveFormatFile(OUTPUT_FILE, document, 1);	
 }
 
