@@ -1,5 +1,5 @@
 SQLce: lex.yy.c y.tab.c
-	gcc -g lex.yy.c y.tab.c xml.c -o SQLce `xml2-config --cflags --libs`
+	gcc -g lex.yy.c y.tab.c xml.c list.c -o SQLce `xml2-config --cflags --libs`
 
 lex.yy.c: y.tab.c SQLce.l
 	lex SQLce.l
