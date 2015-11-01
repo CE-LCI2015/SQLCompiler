@@ -23,7 +23,6 @@ struct node{
 struct list{
         struct node* head;
         int lenght;
-        void add(void*);
 };
 
 

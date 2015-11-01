@@ -5,11 +5,11 @@ xmlDocPtr document;
 /**@brief adds a node
  * @param data: data to add
  */
-void list::add(void* data){
-	struct node newNode;
-	newNode.data=data;
-	newNode.next=head;
-	head=&newNode;
+void addToList(struct list* ls, void* data){
+	struct node newNode = malloc(sizeof(struct node));
+	newNode->data=data;
+	newNode->next=ls->head;
+	ls->head=newNode;
 }
 
 /**@brief insert a create sentence

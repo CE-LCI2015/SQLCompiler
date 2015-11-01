@@ -42,9 +42,9 @@ columns      : column                     {;}
 ;
 
 
-column      : text datatype notnull   {cols.add(createColumn($1,$2,true,NULL));}
-            | text datatype null      {cols.add(createColumn($1,$2,false,NULL));}
-            | text datatype withdefault text {cols.add(createColumn($1,$2,false,$4));}
+column      : text datatype notnull   {addToList(&cols, createColumn($1,$2,true,NULL));}
+            | text datatype null      {addToList(&cols, createColumn($1,$2,false,NULL));}
+            | text datatype withdefault text {addToList(&cols, createColumn($1,$2,false,$4));}
 ;
 
 
