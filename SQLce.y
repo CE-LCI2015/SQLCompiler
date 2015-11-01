@@ -24,6 +24,7 @@ void addColumn(char* columnname, char* dtype, int required, int wdefault, char* 
 %token null
 %token withdefault
 %token <txt> text
+%type <t>
 
 
 %%
@@ -31,7 +32,7 @@ void addColumn(char* columnname, char* dtype, int required, int wdefault, char* 
 /* descriptions of expected inputs     corresponding actions (in C) */
 db 			: table {;}
 			| db table {;}
-table : create text '(' columns ')' ';'
+table : create text '(' columns ')' ';' {addTable($2)}
 ;
 columns      : column                     {;}
             | columns ',' columns          {;}
